@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+    <title>Movies</title>
+</head>
+<body style="background-image: url(https://www.toptal.com/designers/subtlepatterns/uploads/double-bubble.png);">
+    <nav class="navbar is-dark">
+        <div class="container">
+          <div class="navbar-menu">
+            <div class="navbar-start">
+              <div class="navbar-brand">
+                  <a class="navbar-item" href="">
+                      <img src="https://cdn.dribbble.com/users/79252/screenshots/2825500/theatre-round-icon.png" alt="Bulma: a modern CSS framework based on Flexbox" width="80" height="40"> 
+                  </a>
+              </div>
+              <a class="navbar-item" href="{% url 'welcome'%}">Home</a>
+              <a class="navbar-item" href="{% url 'movies'%}">Movies</a>
+              <a class="navbar-item" href="{% url 'about'%}">About Us</a>
+              <a class="navbar-item" href="{% url 'contact' %}">Contact Us</a>
+            </div>
+          </div>
+              <div class="navbar-end" style="padding-top: 5px;">
+                  <div class="navbar-item">
+                      <div class="set">
+                          <div style="padding: 2px;">
+                              <a class="button is-link is-light" href="#">Welcome,{{user.username}}</a>
+                          </div>
+                          
+                      </div>
+                  </div>
+                  <div class="navbar-item">
+                    <div class="set">
+                        <div style="padding: 2px;">
+                            <a class="button is-link is-light" href="{% url 'logout' %}">logout</a>
+                        </div>
+                        
+                    </div>
+                </div>
+
+              </div>
+           </div>
+    </nav>
+    <section class="section">
+        <div class="container">
+          <h1 class="title">Movie List</h1>
+          <div class="columns is-multiline">
+            <!-- Iterate over the list of movies and display them as cards -->
+            {% for movie in movies %}
+            <div class="column is-one-quarter">
+              <div class="card">
+                <div class="card-image">
+                  <!-- Display the movie poster, if available -->
+                  {% if movie.movie_img %}
+                    <figure class="image is-4by3">
+                        <a href="moviedetail/{{movie.id}}/">
+                            <img src="{{ movie.movie_img.url }}" alt="{{ movie.movie_name }}">
+                        </a>
+                      
+                    </figure>
+                  {% endif %}
+                </div>
+                <div class="card-content">
+                  <div class="media">
+                    <div class="media-content">
+                      <p class="title is-4">{{ movie.movie_name }}</p>
+                      <!-- Display the movie release date, if available -->
+                      {% if movie.release_date %}
+                        <p class="subtitle is-6">{{ movie.release_date }}</p>
+                      {% endif %}
+                    </div>
+                  </div>
+                  <!-- Display a brief description of the movie -->
+                  <!-- <div class="content">
+                    {{ movie.movie_desc|truncatewords:20 }}
+                  </div> -->
+                </div>
+              </div>
+            </div>
+            {% endfor %}
+          </div>
+        </div>
+      </section>
+  
+    <footer class="footer">
+        <div class="container has-text-centered">
+        <p>&copy;Copyright 2022</p>
+        </div>
+    </footer>  
+</body>
+</html>

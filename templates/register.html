@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+    <link rel="stylesheet" href="login.css">
+    <!-- <style>
+      footer {
+        position: fixed;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+      }
+    </style> -->
+    
+    
+    
+    
+    
+</head>
+<body style="background-image: url(https://www.toptal.com/designers/subtlepatterns/uploads/double-bubble.png);">
+    <nav class="navbar is-dark">
+        <div class="container">
+          <div class="navbar-menu">
+            <div class="navbar-start">
+              <div class="navbar-brand">
+                  <a class="navbar-item" href="https://bulma.io">
+                      <img src="https://cdn.dribbble.com/users/79252/screenshots/2825500/theatre-round-icon.png" alt="Bulma: a modern CSS framework based on Flexbox" width="80" height="40"> 
+                  </a>
+              </div>
+              <a class="navbar-item" href="{% url 'welcome'%}">Home</a>
+              <a class="navbar-item" href="{% url 'movies'%}">Movies</a>
+              <a class="navbar-item" href="{% url 'about'%}">About Us</a>
+              <a class="navbar-item" href="{% url 'contact' %}">Contact Us</a>
+
+            </div>
+          </div>
+              <div class="navbar-end" style="padding-top: 5px;">
+                {% if user.is_authenticated %}
+                <div class="navbar-item">
+                  <div class="set">
+                      <div style="padding: 2px;">
+                          <a class="button is-link is-light" href="#">Welcome,{{user.username}}</a>
+                      </div>
+                      
+                  </div>
+              </div>
+              <div class="navbar-item">
+                <div class="set">
+                    <div style="padding: 2px;">
+                        <a class="button is-link is-light" href="{% url 'logout' %}">logout</a>
+                    </div>
+                    
+                </div>
+              </div>                    
+              {% else %}
+
+                <div class="navbar-item">
+                  <a class="button is-link is-light" href="{% url 'welcome' %}">Login</a>
+                </div>
+              {% endif %}
+
+              </div>
+           </div>
+    </nav>
+ 
+    <div class="section is-fixed-height is-fixed-width">
+        <div class="columns is-centered">
+            <div class="column is-half" style = "color: aliceblue;">
+                <div class="card">
+                   <div class="card-content">
+                    <form method="post">
+                        {% csrf_token %}
+                        {% csrf_token %}
+                        {% if messages %}
+                        {%for msg in messages %}
+                          <b>{{msg}}</b>
+                        {% endfor %}
+                        {% endif %}
+                        <div class="field is-centered">
+                            <label class="label">First Name</label>
+                            <div class="control">
+                              <input class="input" name="first" type="text" placeholder="Email Address">
+                            </div>
+                        </div>
+                        <div class="field is-centered">
+                            <label class="label">Last Name</label>
+                            <div class="control">
+                              <input class="input" name="last" type="text" placeholder="Email Address">
+                            </div>
+                        </div>                
+                        <div class="field is-centered">
+                          <label class="label">Email Address</label>
+                          <div class="control">
+                            <input class="input" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" name="email" type="text" placeholder="Email Address">
+                          </div>
+                        </div>
+                        <div class="field is-centered">
+                            <label class="label">Username</label>
+                            <div class="control">
+                              <input class="input" name="username" type="text" placeholder="Email Address">
+                            </div>
+                        </div>
+                        <div class="field is-centered">
+                          <label class="label">Password</label>
+                          <div class="control">
+                            <input class="input" name='password' type="password" placeholder="Password">
+                          </div>
+                        </div>
+                        <div class="field is-centered">
+                            <label class="label">Confirm Password</label>
+                            <div class="control">
+                              <input class="input" name='cpassword' type="password" placeholder="Password">
+                            </div>
+                          </div>
+                        <div class="field is-centered">
+                          <div class="control is-centered">
+                            <input type="submit" class="button is-primary">
+                          </div>
+                        </div>
+                      </form>
+                   </div> 
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer class="footer">
+        <div class="container has-text-centered">
+        <p >&copy;Copyright 2022</p>
+        </div>
+    </footer>
+</body>
+</html>

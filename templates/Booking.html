@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    
+    <title>Booking Page</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+    <!-- <style>
+      footer {
+        position: fixed;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+      }
+    </style> -->
+    
+    
+    
+    
+    
+</head>
+<body style="background-image: url(https://www.toptal.com/designers/subtlepatterns/uploads/double-bubble.png);">
+    <nav class="navbar is-dark">
+        <div class="container">
+          <div class="navbar-menu">
+            <div class="navbar-start">
+              <div class="navbar-brand">
+                  <a class="navbar-item" href="https://bulma.io">
+                      <img src="https://cdn.dribbble.com/users/79252/screenshots/2825500/theatre-round-icon.png" alt="Bulma: a modern CSS framework based on Flexbox" width="80" height="40"> 
+                  </a>
+              </div>
+              <a class="navbar-item" href="{% url 'welcome'%}">Home</a>
+              <a class="navbar-item" href="{% url 'movies'%}">Movies</a>
+              <a class="navbar-item" href="{% url 'about'%}">About Us</a>
+              <a class="navbar-item" href="{% url 'contact' %}">Contact Us</a>
+            </div>
+          </div>
+              <div class="navbar-end" style="padding-top: 5px;">
+                  <div class="navbar-item">
+                    {% if user.is_authenticated %}
+                      <div class="navbar-item">
+                        <div class="set">
+                            <div style="padding: 2px;">
+                                <a class="button is-link is-light" href="#">Welcome,{{user.username}}</a>
+                            </div>
+                            
+                        </div>
+                    </div>
+                    <div class="navbar-item">
+                      <div class="set">
+                          <div style="padding: 2px;">
+                              <a class="button is-link is-light" href="{% url 'logout' %}">logout</a>
+                          </div>
+                          
+                      </div>
+                    </div>                    
+                    {% else %}
+                      <div class="navbar-item">
+                        <a class="button is-link is-light" href="{% url 'register' %}">Register</a>
+                      </div>
+                    {% endif %}
+                  </div>
+
+              </div>
+           </div>
+    </nav>
+    <section class="section">
+        <div class="container">
+            <div class="columns">
+                <div class="column">
+
+                    <div class="card">
+                        <div class="card-image">
+                            <video width="400" height="340" controls="" style="height: fit-content;width: fit-content">
+                                <source src="{{movie.movie_trailor.url}}" type="video/mp4">
+                            </video>
+                        </div>
+                        <div class="media">
+                            <div class="media-left">
+                              <figure class="image is-48x48">
+                                <img src="{{movie.movie_img.url}}" alt="{{movie.movie_name}}">
+                              </figure>
+                            </div>
+                            <div class="media-content">
+                              <p class="title is-4">{{movie.movie_name}}</p>
+                              
+                            </div>
+                          </div>
+                        <div class="card-content">
+
+                            <p>{{movie.movie_desc}}</p>
+                        </div>
+    
+    
+                    </div>
+    
+    
+                </div>
+                <div class="column">
+                    <div class="columns is-centered">
+                        <div class="column is-half">
+
+                            <div class="card">
+                                <div class="card-content">
+                                  <form  action ="{% url 'booking' %}" method="post">
+                                    {% csrf_token %}
+                            
+                                    {% if messages %}
+                                    {%for msg in messages %}
+                                      <b>{{msg}}</b>
+                                    {% endfor %}
+                                    {% endif %}
+                                    <div class="field is-centered">
+                                      <label class="label">Name</label>
+                                      <div class="control">
+                                        <input class="input" value ="{{user.first_name}} {{user.last_name}}" name="fullname" type="text" readonly>
+                                      </div>
+                                    </div>
+                                    <div class="field is-centered">
+                                        <label class="label">Email Address</label>
+                                        <div class="control">
+                                          <input class="input" value ="{{user.email}}" name="email" type="email" readonly>
+                                        </div>
+                                      </div>
+                                    <div class="field is-centered">
+                                        <label class="label">Movie</label>
+                                        <div class="control">
+                                          <input class="input" value ="{{movie.movie_name}}" name="movie" type="text" readonly>
+                                        </div>
+                                    </div>
+                                    <div class="field is-centered">
+                                        <label class="label">Timings</label>
+                                        <div class="control">
+                                            <div  class="select">
+                                                <select name ="show">
+                                                  <option value="morning" >Morning Show</option>
+                                                  <option value="Noon">Noon Show</option>
+                                                  <option value="first">first Show</option>
+                                                  <option value="second">second Show</option>
+                                                </select>
+                                              </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="field is-centered">
+                                        <label class="label">No of seats</label>
+                                        <div class="control">
+                                          <input class="input"  name="count" type="number" min="1" max="10" >
+                                        </div>
+                                      </div>
+                                    <div class="field is-centered">
+                                      <div class="control">
+                                        <input type="submit" class="button is-primary is-centered">
+                                      </div>
+                                    </div>
+                                  </form>
+                                </div>
+                        </div>
+
+                    </div>
+
+                </div>
+    
+            </div>
+    
+    
+        </div>
+    </section>
+
+    <footer class="footer is-fixed-bottom">
+        <div class="container has-text-centered">
+        <p >&copy;Copyright 2022</p>
+        </div>
+    </footer>
+</body>
+</html>

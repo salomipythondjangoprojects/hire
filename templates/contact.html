@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Contact Us</title>
+    <!-- link to the Bulma CSS file -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
+  </head>
+  <body>
+    <nav class="navbar is-dark">
+        <div class="container">
+          <div class="navbar-menu">
+            <div class="navbar-start">
+              <div class="navbar-brand">
+                  <a class="navbar-item" href="https://bulma.io">
+                      <img src="https://cdn.dribbble.com/users/79252/screenshots/2825500/theatre-round-icon.png" alt="Bulma: a modern CSS framework based on Flexbox" width="80" height="40"> 
+                  </a>
+              </div>
+              <a class="navbar-item" href="{% url 'welcome'%}">Home</a>
+              <a class="navbar-item" href="{% url 'movies'%}">Movies</a>
+              <a class="navbar-item" href="{% url 'about'%}">About Us</a>
+              <a class="navbar-item" href="{% url 'contact' %}">Contact Us</a>
+            </div>
+          </div>
+              <div class="navbar-end" style="padding-top: 5px;">
+                  <div class="navbar-item">
+                    {% if user.is_authenticated %}
+                      <div class="navbar-item">
+                        <div class="set">
+                            <div style="padding: 2px;">
+                                <a class="button is-link is-light" href="#">Welcome,{{user.username}}</a>
+                            </div>
+                            
+                        </div>
+                    </div>
+                    <div class="navbar-item">
+                      <div class="set">
+                          <div style="padding: 2px;">
+                              <a class="button is-link is-light" href="{% url 'logout' %}">logout</a>
+                          </div>
+                          
+                      </div>
+                    </div>                    
+                    {% else %}
+                      <div class="navbar-item">
+                        <a class="button is-link is-light" href="{% url 'register' %}">Register</a>
+                      </div>
+                    {% endif %}
+                  </div>
+
+              </div>
+           </div>
+    </nav>
+    <section class="section">
+      <div class="container">
+        <h1 class="title">Contact Us</h1>
+        <p class="subtitle">
+          Have a question or want to get in touch with us? Fill out the form below and we'll get back to you as soon as possible.
+        </p>
+        <!-- contact form -->
+        <form  method="POST">
+            {% csrf_token %}
+          <div class="field">
+            <label class="label">Name</label>
+            <div class="control">
+              <input class="input" type="text" name="name" placeholder="Your name">
+            </div>
+          </div>
+          <div class="field">
+            <label class="label">Email</label>
+            <div class="control">
+              <input class="input" type="email" name="email" placeholder="Your email">
+            </div>
+          </div>
+          <div class="field">
+            <label class="label">Message</label>
+            <div class="control">
+              <textarea class="textarea" name="message" placeholder="Your message"></textarea>
+            </div>
+          </div>
+          <div class="field">
+            <div class="control">
+              <button class="button is-link" type="submit">Send Message</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </section>
+    <footer class="footer is-fixed-bottom">
+        <div class="container has-text-centered">
+        <p >&copy;Copyright 2022</p>
+        </div>
+    </footer>
+  </body>
+</html>
